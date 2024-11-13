@@ -541,3 +541,55 @@ body {
         padding: 0.5em 1.2em;
     }
 }
+/* Hero Section Styling */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* จัดวางเนื้อหาให้กระจายตัวซ้ายและขวา */
+    padding: 2em;
+    background-color: #e9a540;
+}
+
+.hero-content {
+    max-width: 600px;
+    text-align: left; /* ทำให้ข้อความชิดซ้าย */
+}
+
+.hero-content h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.hero-content p {
+    font-size: 1em;
+    margin-bottom: 1em;
+    line-height: 1.5;
+}
+
+.hero-btn {
+    padding: 0.7em 1.5em;
+    font-size: 1em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hero-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Hero Image Styling */
+.hero-image {
+    display: flex;
+    justify-content: flex-end; /* ทำให้ภาพชิดขวาภายในคอนเทนเนอร์ */
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
