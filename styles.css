@@ -624,4 +624,78 @@ body {
   .menu a:hover {
     transform: rotate(-5deg);
   }
+/* สไตล์เบื้องต้นสำหรับ navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+}
+
+/* สไตล์โลโก้ */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* สไตล์ของเมนูในหน้าจอใหญ่ */
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.menu a:hover {
+    color: #ff69b4;
+}
+
+/* ซ่อนเมนูและ hamburger ในหน้าจอขนาดเล็ก */
+.menu {
+    display: flex;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    height: 3px;
+    width: 25px;
+    background-color: #fff;
+    margin: 4px 0;
+    transition: 0.3s;
+}
+
+/* สำหรับหน้าจอขนาดเล็ก (ต่ำกว่า 768px) */
+@media (max-width: 768px) {
+    .menu {
+        display: none; /* ซ่อนเมนู */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #333;
+        width: 100%;
+        text-align: center;
+    }
+
+    .menu a {
+        padding: 10px 0;
+        border-top: 1px solid #444;
+    }
+
+    .hamburger {
+        display: flex; /* แสดง hamburger */
+    }
+
+    .menu.show {
+        display: flex; /* แสดงเมนูเมื่อคลิก hamburger */
+    }
+}
     
