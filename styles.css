@@ -14,10 +14,82 @@ body {
 /* Navbar */
 .navbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ac731f;
-    color: rgb(255, 255, 255);
+    padding: 1rem 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #666;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: #333;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        margin: 16px 0;
+    }
 }
 
 .logo {
@@ -624,42 +696,44 @@ body {
   .menu a:hover {
     transform: rotate(-5deg);
   }
-/* สไตล์เบื้องต้นสำหรับ navbar */
+
+  /* สไตล์ของ Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    background-color: #333;
+    padding: 15px 20px;
+    background-color: #d87315c5;
     color: #fff;
 }
 
-/* สไตล์โลโก้ */
+/* โลโก้ */
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    color: #ff69b4;
 }
 
-/* สไตล์ของเมนูในหน้าจอใหญ่ */
+/* เมนูที่จะแสดงในหน้าจอใหญ่ */
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
 .menu a {
     color: #fff;
     text-decoration: none;
-    margin: 0 10px;
     font-weight: bold;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 .menu a:hover {
     color: #ff69b4;
 }
 
-/* ซ่อนเมนูและ hamburger ในหน้าจอขนาดเล็ก */
-.menu {
-    display: flex;
-}
-
+/* สไตล์ของปุ่ม hamburger */
 .hamburger {
-    display: none;
+    display: none;  /* ซ่อนในหน้าจอใหญ่ */
     flex-direction: column;
     cursor: pointer;
 }
@@ -669,33 +743,54 @@ body {
     width: 25px;
     background-color: #fff;
     margin: 4px 0;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
-/* สำหรับหน้าจอขนาดเล็ก (ต่ำกว่า 768px) */
+/* เมนูและปุ่ม hamburger ในหน้าจอเล็ก (max-width: 768px) */
 @media (max-width: 768px) {
+    /* ซ่อนเมนูหลักในหน้าจอเล็ก */
     .menu {
-        display: none; /* ซ่อนเมนู */
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 0;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100%;
         background-color: #333;
-        width: 100%;
-        text-align: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 10;
     }
 
-    .menu a {
-        padding: 10px 0;
-        border-top: 1px solid #444;
-    }
-
-    .hamburger {
-        display: flex; /* แสดง hamburger */
-    }
-
+    /* แสดงเมนูเมื่อมีการเปิด */
     .menu.show {
-        display: flex; /* แสดงเมนูเมื่อคลิก hamburger */
+        transform: translateX(0);
+    }
+
+    /* เพิ่มระยะห่างในแต่ละลิงค์เมนู */
+    .menu a {
+        padding: 15px 0;
+        font-size: 1.2rem;
+    }
+
+    /* แสดงปุ่ม hamburger ในหน้าจอเล็ก */
+    .hamburger {
+        display: flex;
+    }
+
+    /* สไตล์เมื่อปุ่ม hamburger คลิกแล้วเปลี่ยนเป็น X */
+    .hamburger.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
     }
 }
-    
