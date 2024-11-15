@@ -11,34 +11,104 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Navbar */
+/* เพิ่ม CSS Variables */
+:root {
+    --primary-color: #00ffff;
+    --secondary-color: #ff00ff;
+    --text-color: #ffffff;
+    --menu-bg: rgba(0, 0, 0, 0.9);
+    --transition-speed: 0.3s;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes logoFloat {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Navbar Styles */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.8s ease-out;
 }
 
+/* Logo Styles */
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.logo-text {
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.logo-and {
+    color: #92470a;
+    margin: 0 10px;
+}
+
+/* Menu Styles */
 .nav-menu {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: 2rem;
     list-style: none;
 }
 
 .nav-link {
+    position: relative;
     text-decoration: none;
-    color: #333;
-    transition: 0.3s ease;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: var(--transition-speed);
+    padding: 0.5rem 1rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-.nav-link:hover {
-    color: #666;
+.nav-link::before {
+    content: attr(data-text);
+    position: absolute;
+    color: var(--primary-color);
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width var(--transition-speed) ease-in-out;
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
+.nav-link:hover::before {
+    width: 100%;
+}
+
+/* Hamburger Styles */
 .hamburger {
     display: none;
     cursor: pointer;
@@ -49,38 +119,61 @@ body {
     width: 25px;
     height: 3px;
     margin: 5px auto;
-    transition: all 0.3s ease-in-out;
-    background-color: #333;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    transition: var(--transition-speed);
+    border-radius: 3px;
+    box-shadow: 0 0 5px var(--primary-color);
 }
 
+/* Mobile Styles */
 @media (max-width: 768px) {
+    .navbar {
+        position: relative;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5rem;
+    }
+
     .hamburger {
         display: block;
+        order: -1;
+        z-index: 101;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+        background: var(--primary-color);
+        box-shadow: 0 0 5px var(--primary-color);
     }
 
     .hamburger.active .bar:nth-child(2) {
         opacity: 0;
     }
 
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
+        background: var(--primary-color);
+        box-shadow: 0 0 5px var(--primary-color);
     }
 
     .nav-menu {
         position: fixed;
         left: -100%;
-        top: 70px;
+        top: 0;
         gap: 0;
         flex-direction: column;
-        background-color: #fff;
+        background: var(--menu-bg);
+        backdrop-filter: blur(10px);
         width: 100%;
+        height: 100vh;
         text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: var(--transition-speed);
+        z-index: 100;
+        padding-top: 80px;
     }
 
     .nav-menu.active {
@@ -88,7 +181,15 @@ body {
     }
 
     .nav-menu li {
-        margin: 16px 0;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: var(--transition-speed);
+    }
+
+    .nav-menu.active li {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: calc(0.1s * var(--i));
     }
 }
 
@@ -117,78 +218,215 @@ body {
 /* Hero Section */
 .hero {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 2rem;
-    background-color: #ffe48b;
+    padding: 4rem 2rem;
+    gap: 2rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
 }
 
 .hero-content {
-    max-width: 50%;
+    flex: 1;
+    animation: slideInLeft 1s ease-out;
 }
 
 .hero-content h1 {
-    font-size: 2.5rem;
-    color: #333;
+    font-size: 3.5rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content p {
-    margin: 1rem 0;
-    color: #555;
+    color: #f0f0f0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.5s;
 }
 
 .hero-btn {
-    padding: 0.8rem 1.5rem;
-    color: white;
-    background-color: #ac731f;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background: var(--primary-color);
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
-    font-size: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-btn:hover {
-    background-color: #218838;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+}
+
+.hero-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s;
+}
+
+.hero-btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.hero-image {
+    flex: 1;
+    animation: floatImage 3s ease-in-out infinite;
 }
 
 .hero-image img {
-    max-width: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
 }
 
 /* Categories Section */
 .categories {
-    padding: 2rem;
-    text-align: center;
+    padding: 5rem 2rem;
+    background: transparent;
 }
 
 .categories h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #333;
+    text-align: center;
+    color: #000;
+    font-size: 2.2rem;
+    margin-bottom: 3.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .category-item {
-    padding: 1rem;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     text-align: center;
-    font-size: 1rem;
-    color: #555;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
+.category-item img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    border-radius: 12px;
+}
+
+.category-item p {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effects */
 .category-item:hover {
-    background-color: #f1f1f1;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.category-item:hover p {
+    color: #000;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.95);
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .categories {
+        padding: 3rem 1rem;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .category-item img {
+        height: 280px;
+    }
+}
+
+/* Animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes floatImage {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 }
 
 /* Delete Product Section */
@@ -230,6 +468,7 @@ body {
 .delete-btn:hover {
     background-color: #c82333;
 }
+
 /* Add Product Section */
 .add-product {
     padding: 2rem;
@@ -305,36 +544,53 @@ body {
 .category-item img {
     width: 100%;
     height: auto;
-    max-width: 120px; /* กำหนดขนาดสูงสุดของรูปภาพ */
-    border-radius: 10px; /* เพิ่มความโค้งมนให้รูปภาพ */
+    max-width: 120px;
+    /* กำหนดขนาดสูงสุดของรูปภาพ */
+    border-radius: 10px;
+    /* เพิ่มความโค้งมนให้รูปภาพ */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s; /* เพิ่มเอฟเฟคเมื่อวางเมาส์บนรูป */
+    transition: transform 0.3s;
+    /* เพิ่มเอฟเฟคเมื่อวางเมาส์บนรูป */
 }
 
 .category-item img:hover {
-    transform: scale(1.50); /* ขยายรูปภาพเมื่อ hover */
+    transform: scale(1.50);
+    /* ขยายรูปภาพเมื่อ hover */
 }
 
 .category-item p {
     margin-top: 10px;
-    font-weight: bold;
+    font-weight: 600;
+    /* เพิ่มความหนาของตัวอักษร */
     color: #333;
+    /* ปรับสีให้เข้มขึ้น */
+    font-size: 1.1rem;
+    /* เพิ่มขนาดตัวอักษร */
+    padding: 5px 0;
+    /* เพิ่มระยะห่างด้านบนและล่าง */
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+    /* เพิ่มเงาเล็กน้อยเพื่อให้อ่านง่ายขึ้น */
 }
+
 .categories {
     text-align: center;
-    padding: 2rem 1rem; /* ระยะห่างด้านบนและด้านล่าง 2rem, ด้านซ้ายและขวา 1rem */
+    padding: 2rem 1rem;
+    /* ระยะห่างด้านบนและด้านล่าง 2rem, ด้านซ้ายและขวา 1rem */
 }
 
 .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px; /* ระยะห่างระหว่างแต่ละ category-item */
-    padding: 0 40px; /* เพิ่มระยะห่างด้านซ้ายและขวา */
+    gap: 20px;
+    /* ระยะห่างระหว่างแต่ละ category-item */
+    padding: 0 40px;
+    /* เพิ่มระยะห่างด้านซ้ายและขวา */
 }
 
 .category-item {
     text-align: center;
-    padding: 20px; /* เพิ่มระยะห่างภายในแต่ละหมวดหมู่ */
+    padding: 20px;
+    /* เพิ่มระยะห่างภายในแต่ละหมวดหมู่ */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background-color: #f9f9f9;
@@ -357,6 +613,7 @@ body {
     font-weight: bold;
     color: #333;
 }
+
 .categories {
     text-align: center;
     padding: 2rem 1rem;
@@ -378,9 +635,12 @@ body {
 }
 
 .category-item img {
-    width: 120px;          /* กำหนดความกว้างคงที่ของรูปภาพ */
-    height: 120px;         /* กำหนดความสูงคงที่ของรูปภาพ */
-    object-fit: cover;     /* ครอบรูปภาพให้พอดีในกรอบ */
+    width: 120px;
+    /* กำหนดความกว้างคงที่ของรูปภาพ */
+    height: 120px;
+    /* กำหนดความสูงคงที่ของรูปภาพ */
+    object-fit: cover;
+    /* ครอบรูปภาพให้พอดีในกรอบ */
     border-radius: 10px;
     transition: transform 0.3s;
 }
@@ -394,12 +654,13 @@ body {
     font-weight: bold;
     color: #333;
 }
+
 /* CSS เริ่มต้น */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
+    background-color: #dddddc;
 }
 
 .navbar .logo {
@@ -408,7 +669,8 @@ body {
     color: #ffffff;
 }
 
-h1, h2 {
+h1,
+h2 {
     font-family: 'Pacifico', cursive;
     color: #e76f51;
 }
@@ -613,18 +875,21 @@ body {
         padding: 0.5em 1.2em;
     }
 }
+
 /* Hero Section Styling */
 .hero {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* จัดวางเนื้อหาให้กระจายตัวซ้ายและขวา */
+    justify-content: space-between;
+    /* จัวางเนื้หาให้กระจายตัวซ้ายและขวา */
     padding: 2em;
     background-color: #e9a540;
 }
 
 .hero-content {
     max-width: 600px;
-    text-align: left; /* ทำให้ข้อความชิดซ้าย */
+    text-align: left;
+    /* ทำให้ข้อความชิดซ้าย */
 }
 
 .hero-content h1 {
@@ -656,7 +921,8 @@ body {
 /* Hero Image Styling */
 .hero-image {
     display: flex;
-    justify-content: flex-end; /* ทำให้ภาพชิดขวาภายในคอนเทนเนอร์ */
+    justify-content: flex-end;
+    /* ทำให้ภาพชิดขวาภายในคอนเทนเนอร์ */
 }
 
 .hero-image img {
@@ -665,24 +931,33 @@ body {
     height: auto;
     border-radius: 10px;
 }
+
 .logo {
     font-size: 2rem;
     font-weight: bold;
     animation: bounce 2s infinite;
-  }
-  
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
     }
+
     40% {
-      transform: translateY(-15px);
+        transform: translateY(-15px);
     }
+
     60% {
-      transform: translateY(-8px);
+        transform: translateY(-8px);
     }
-  }
-  .menu a {
+}
+
+.menu a {
     font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
@@ -691,13 +966,13 @@ body {
     margin: 0 5px;
     display: inline-block;
     transition: transform 0.3s ease;
-  }
-  
-  .menu a:hover {
-    transform: rotate(-5deg);
-  }
+}
 
-  /* สไตล์ของ Navbar */
+.menu a:hover {
+    transform: rotate(-5deg);
+}
+
+/* สไตล์ของ Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -733,7 +1008,8 @@ body {
 
 /* สไตล์ของปุ่ม hamburger */
 .hamburger {
-    display: none;  /* ซ่อนในหน้าจอใหญ่ */
+    display: none;
+    /* ซ่อนในหน้าจอใหญ่ */
     flex-direction: column;
     cursor: pointer;
 }
@@ -748,6 +1024,7 @@ body {
 
 /* เมนูและปุ่ม hamburger ในหน้าจอเล็ก (max-width: 768px) */
 @media (max-width: 768px) {
+
     /* ซ่อนเมนูหลักในหน้าจอเล็ก */
     .menu {
         display: none;
@@ -776,7 +1053,7 @@ body {
         font-size: 1.2rem;
     }
 
-    /* แสดงปุ่ม hamburger ในหน้าจอเล็ก */
+    /* แสดงปุ่ม hamburger ในหน้าอเล็ก */
     .hamburger {
         display: flex;
     }
