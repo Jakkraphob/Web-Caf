@@ -10,18 +10,15 @@
     <!-- ลิงก์ไปยังฟอนต์ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap"
         rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
-
+ 
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="hamburger">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-
         <div class="logo">
             <span class="logo-text">Sprinkle</span>
             <span class="logo-and">&</span>
@@ -33,10 +30,12 @@
             <li><a href="#" class="nav-link" data-text="Menu">Menu</a></li>
             <li><a href="#" class="nav-link" data-text="Drinks">Drinks</a></li>
             <li><a href="#" class="nav-link" data-text="Snacks">Snacks</a></li>
-            <li><a href="#" class="nav-link" data-text="Give Shop">Give Shop</a></li>
             <li><a href="#" class="nav-link" data-text="Contact">Contact</a></li>
+            <li><a href="#" class="nav-link cart-icon" data-text=""><i class="fas fa-shopping-cart"></i></a></li>
         </ul>
     </nav>
+
+    <div class="overlay"></div>
 
     <script src="script.js"></script>
 </body>
@@ -54,9 +53,7 @@
             extraordinary with us at Sprinkle & Sip Cafe!" ☕️🌸</p>
         <button class="hero-btn">Shop Now</button>
     </div>
-    <div class="hero-image">
-        <img src="image/9tfrgu.jpg" alt="Happy customer holding groceries" width="400" height="400">
-    </div>
+    
 </header>
 
 <!-- Featured Categories -->

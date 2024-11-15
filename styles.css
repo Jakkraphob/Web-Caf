@@ -52,16 +52,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: 1.5rem 2rem;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     animation: fadeIn 0.8s ease-out;
+    min-height: 80px;
+    z-index: 1;
+    position: relative;
 }
 
 /* Logo Styles */
 .logo {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     text-align: center;
 }
@@ -69,11 +72,13 @@ body {
 .logo-text {
     color: #ffffff;
     letter-spacing: 1px;
+    font-size: 2.2rem;
 }
 
 .logo-and {
     color: #92470a;
-    margin: 0 10px;
+    margin: 0 15px;
+    font-size: 2rem;
 }
 
 /* Menu Styles */
@@ -108,27 +113,12 @@ body {
     width: 100%;
 }
 
-/* Hamburger Styles */
-.hamburger {
-    display: none;
-    cursor: pointer;
-}
-
-.bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    transition: var(--transition-speed);
-    border-radius: 3px;
-    box-shadow: 0 0 5px var(--primary-color);
-}
-
 /* Mobile Styles */
 @media (max-width: 768px) {
     .navbar {
         position: relative;
+        padding: 1.2rem 1rem;
+        min-height: 70px;
     }
 
     .logo {
@@ -136,18 +126,62 @@ body {
         left: 50%;
         transform: translateX(-50%);
         font-size: 1.5rem;
+        white-space: nowrap;
+    }
+
+    .logo-text {
+        font-size: 1.3rem;
+    }
+
+    .logo-and {
+        font-size: 1.2rem;
+        margin: 0 8px;
     }
 
     .hamburger {
         display: block;
-        order: -1;
-        z-index: 101;
     }
 
+    /* เมนูที่เลื่อนออกมา */
+    .nav-menu {
+        position: fixed !important;
+        left: -100%;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #ac731f;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        z-index: 99998 !important;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    /* ปรับสไตล์ลิงก์ในเมนู */
+    .nav-link {
+        position: relative;
+        display: block;
+        padding: 20px 0;
+        font-size: 1.8rem;
+        color: #ffffff;
+        margin: 10px 0;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .nav-link:hover {
+        transform: scale(1.1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Animation for hamburger */
     .hamburger.active .bar:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
-        background: var(--primary-color);
-        box-shadow: 0 0 5px var(--primary-color);
     }
 
     .hamburger.active .bar:nth-child(2) {
@@ -156,40 +190,27 @@ body {
 
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
-        background: var(--primary-color);
-        box-shadow: 0 0 5px var(--primary-color);
+    }
+}
+
+/* สำหรับหน้าจอที่เล็กมากๆ */
+@media (max-width: 360px) {
+    .navbar {
+        padding: 1rem 0.8rem;
+        min-height: 60px;
     }
 
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 0;
-        gap: 0;
-        flex-direction: column;
-        background: var(--menu-bg);
-        backdrop-filter: blur(10px);
-        width: 100%;
-        height: 100vh;
-        text-align: center;
-        transition: var(--transition-speed);
-        z-index: 100;
-        padding-top: 80px;
+    .logo {
+        font-size: 1.2rem;
     }
 
-    .nav-menu.active {
-        left: 0;
+    .logo-text {
+        font-size: 1.1rem;
     }
 
-    .nav-menu li {
-        opacity: 0;
-        transform: translateX(-20px);
-        transition: var(--transition-speed);
-    }
-
-    .nav-menu.active li {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: calc(0.1s * var(--i));
+    .logo-and {
+        font-size: 1rem;
+        margin: 0 5px;
     }
 }
 
@@ -219,44 +240,53 @@ body {
 .hero {
     display: flex;
     align-items: center;
-    padding: 4rem 2rem;
-    gap: 2rem;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    padding: 2rem 4rem;
+    gap: 1rem;
+    background: linear-gradient(to right, 
+        rgba(0, 0, 0, 0.8), 
+        rgba(0, 0, 0, 0.4), 
+        rgba(0, 0, 0, 0)), 
+        url('image/eer.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 75vh;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-content {
-    flex: 1;
-    animation: slideInLeft 1s ease-out;
+    max-width: 600px;
+    text-align: left;
+    padding-left: 2rem;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
-    color: #fff;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content p {
-    color: #f0f0f0;
-    font-size: 1.2rem;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 0.5s;
+    max-width: 500px;
 }
 
 .hero-btn {
     padding: 1rem 2rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     background: var(--primary-color);
     color: #fff;
     border: none;
     border-radius: 30px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
+    display: inline-block;
 }
 
 .hero-btn:hover {
@@ -296,6 +326,8 @@ body {
 .categories {
     padding: 5rem 2rem;
     background: transparent;
+    z-index: 1;
+    position: relative;
 }
 
 .categories h2 {
@@ -565,9 +597,9 @@ body {
     color: #333;
     /* ปรับสีให้เข้มขึ้น */
     font-size: 1.1rem;
-    /* เพิ่มขนาดตัวอักษร */
+    /* เพิ่มขนาดตัอักษร */
     padding: 5px 0;
-    /* เพิ่มระยะห่างด้านบนและล่าง */
+    /* เพิ่มระยะห่างด้านบนละล่าง */
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
     /* เพิ่มเงาเล็กน้อยเพื่อให้อ่านง่ายขึ้น */
 }
@@ -638,9 +670,9 @@ body {
     width: 120px;
     /* กำหนดความกว้างคงที่ของรูปภาพ */
     height: 120px;
-    /* กำหนดความสูงคงที่ของรูปภาพ */
+    /* กำหนดค���ามสูงงที่ของรูปภาพ */
     object-fit: cover;
-    /* ครอบรูปภาพให้พอดีในกรอบ */
+    /* ครอบรูปภาพให้พอีในกรบ */
     border-radius: 10px;
     transition: transform 0.3s;
 }
@@ -889,7 +921,7 @@ body {
 .hero-content {
     max-width: 600px;
     text-align: left;
-    /* ทำให้ข้อความชิดซ้าย */
+    /* ทำให้ข้ความชิดซ้าย */
 }
 
 .hero-content h1 {
@@ -1022,7 +1054,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* เมนูและปุ่ม hamburger ในหน้าจอเล็ก (max-width: 768px) */
+/* เมนูและปุ่ม hamburger นหน้าจอเล็ก (max-width: 768px) */
 @media (max-width: 768px) {
 
     /* ซ่อนเมนูหลักในหน้าจอเล็ก */
@@ -1047,7 +1079,7 @@ body {
         transform: translateX(0);
     }
 
-    /* เพิ่มระยะห่างในแต่ละลิงค์เมนู */
+    /* เพิ่มระยะห่างในแต่ะลิงคเมนู */
     .menu a {
         padding: 15px 0;
         font-size: 1.2rem;
@@ -1070,4 +1102,93 @@ body {
     .hamburger.open span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
     }
+}
+
+/* Reset stacking context */
+* {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px;
+    position: fixed !important;
+    left: 15px;
+    top: 20px;
+    z-index: 99999 !important;
+}
+
+.bar {
+    display: block;
+    width: 30px;
+    height: 3px;
+    margin: 5px 0;
+    border-radius: 3px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 768px) {
+    body {
+        position: relative;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    /* เมนูที่เลื่อนออกมา */
+    .nav-menu {
+        position: fixed !important;
+        left: -100%;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #ac731f;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        z-index: 99998 !important;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    /* ปรับสไตล์ลิงก์ในเมนู */
+    .nav-link {
+        position: relative;
+        display: block;
+        padding: 20px 0;
+        font-size: 1.8rem;
+        color: #ffffff;
+        margin: 10px 0;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    /* ทำให้แน่ใจว่าเนื้อหาอื่นๆ อยู่ด้านหลัง */
+    .navbar,
+    .hero,
+    .categories,
+    .content-section,
+    main,
+    section {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+/* เพิ่ม CSS สำหรับ container หลัก */
+.main-container {
+    position: relative;
+    z-index: 1;
 }
