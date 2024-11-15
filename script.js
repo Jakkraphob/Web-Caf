@@ -1,29 +1,31 @@
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
-const navLinks = document.querySelectorAll(".nav-link");
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+    const menuOverlay = document.querySelector(".menu-overlay");
 
-// เพิ่ม index ให้กับแต่ละ menu item สำหรับ animation
-navLinks.forEach((link, index) => {
-    link.style.setProperty('--i', index);
-});
+    // Toggle menu
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+        menuOverlay.classList.toggle("active");
+        document.body.style.overflow = navMenu.classList.contains("active") ? "hidden" : "auto";
+    });
 
-hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-});
-
-navLinks.forEach(link => {
-    link.addEventListener("click", () => {
+    // ปิดเมนูเมื่อคลิก overlay
+    menuOverlay.addEventListener("click", () => {
         hamburger.classList.remove("active");
         navMenu.classList.remove("active");
+        menuOverlay.classList.remove("active");
+        document.body.style.overflow = "auto";
     });
-});
 
-// เพิ่ม hover effect สำหรับ logo
-const logo = document.querySelector(".logo");
-logo.addEventListener("mouseover", () => {
-    logo.style.transform = "scale(1.1)";
-});
-logo.addEventListener("mouseout", () => {
-    logo.style.transform = "scale(1)";
+    // ปิดเมนูเมื่อคลิกที่ลิงก์
+    document.querySelectorAll(".nav-link").forEach(link => {
+        link.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+            menuOverlay.classList.remove("active");
+            document.body.style.overflow = "auto";
+        });
+    });
 });

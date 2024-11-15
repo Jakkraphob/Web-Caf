@@ -19,78 +19,113 @@
  
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">
-            <span class="logo-text">Sprinkle</span>
-            <span class="logo-and">&</span>
-            <span class="logo-text">Sip Cafe</span>
-        </div>
+        <div class="nav-container">
+            <!-- Logo Section -->
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">Sprinkle</span>
+                    <span class="logo-and">&</span>
+                    <span class="logo-text">Sip Cafe</span>
+                </a>
+            </div>
 
-        <ul class="nav-menu">
-            <li><a href="#" class="nav-link" data-text="Home">Home</a></li>
-            <li><a href="#" class="nav-link" data-text="Menu">Menu</a></li>
-            <li><a href="#" class="nav-link" data-text="Drinks">Drinks</a></li>
-            <li><a href="#" class="nav-link" data-text="Snacks">Snacks</a></li>
-            <li><a href="#" class="nav-link" data-text="Contact">Contact</a></li>
-            <li><a href="#" class="nav-link cart-icon" data-text=""><i class="fas fa-shopping-cart"></i></a></li>
-        </ul>
+            <!-- Navigation Menu -->
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Menu <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Breakfast</a></li>
+                        <li><a href="#">Lunch</a></li>
+                        <li><a href="#">Dinner</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Drinks <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Coffee</a></li>
+                        <li><a href="#">Tea</a></li>
+                        <li><a href="#">Smoothies</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-link">Snacks</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+
+            <!-- Right Menu Items -->
+            <div class="nav-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="nav-buttons">
+                    <a href="#" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <a href="#" class="user-icon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="hamburger">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
 
-    <div class="overlay"></div>
+    <div class="menu-overlay"></div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Sprinkle & Sip Cafe</h1>
+            <p>"Come refresh your day at Sprinkle & Sip Cafe! Indulge in our signature drinks and delightful desserts in a
+                cozy, relaxing atmosphere. Savor every sip and treat yourself to a little happiness. Make your ordinary day
+                extraordinary with us at Sprinkle & Sip Cafe!" ☕️🌸</p>
+            <button class="hero-btn">Shop Now</button>
+        </div>
+        
+    </header>
+
+    <!-- Featured Categories -->
+    <section class="categories">
+        <h2>Featured Categories</h2>
+        <div class="category-grid">
+            <div class="category-item">
+                <img src="image/9tfrgu.jpg" alt="Dairy, Bread & Eggs">
+                <p>Tea, Coffee & Drinks</p>
+            </div>
+            <div class="category-item">
+                <img src="image/dads.png" alt="Snacks & Munchies">
+                <p>Dairy, Bread & Eggs</p>
+            </div>
+            <div class="category-item">
+                <img src="image/bff.png" alt="Bakery & Biscuits">
+                <p>Bakery & Biscuits</p>
+            </div>
+            <div class="category-item">
+                <img src="image/sdas.png" alt="Instant Food">
+                <p>Instant Food</p>
+            </div>
+            <div class="category-item">
+                <img src="image/daeee.jpg" alt="Tea, Coffee & Drinks">
+                <p>Snacks & Munchies</p>
+            </div>
+            <div class="category-item">
+                <img src="image/zzl.png" alt="Fresh Fruits & Vegetables">
+                <p>Fresh Fruits & Vegetables</p>
+            </div>
+            <div class="category-item">
+                <img src="image/Salami-pizza-hero.jpg" alt="Fresh Fruits & Vegetables">
+                <p>Pizza</p>
+            </div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
 
 </html>
-
-
-
-<!-- Hero Section -->
-<header class="hero">
-    <div class="hero-content">
-        <h1>Sprinkle & Sip Cafe</h1>
-        <p>"Come refresh your day at Sprinkle & Sip Cafe! Indulge in our signature drinks and delightful desserts in a
-            cozy, relaxing atmosphere. Savor every sip and treat yourself to a little happiness. Make your ordinary day
-            extraordinary with us at Sprinkle & Sip Cafe!" ☕️🌸</p>
-        <button class="hero-btn">Shop Now</button>
-    </div>
-    
-</header>
-
-<!-- Featured Categories -->
-<s<section class="categories">
-    <h2>Featured Categories</h2>
-    <div class="category-grid">
-        <div class="category-item">
-            <img src="image/9tfrgu.jpg" alt="Dairy, Bread & Eggs">
-            <p>Tea, Coffee & Drinks</p>
-        </div>
-        <div class="category-item">
-            <img src="image/dads.png" alt="Snacks & Munchies">
-            <p>Dairy, Bread & Eggs</p>
-        </div>
-        <div class="category-item">
-            <img src="image/bff.png" alt="Bakery & Biscuits">
-            <p>Bakery & Biscuits</p>
-        </div>
-        <div class="category-item">
-            <img src="image/sdas.png" alt="Instant Food">
-            <p>Instant Food</p>
-        </div>
-        <div class="category-item">
-            <img src="image/daeee.jpg" alt="Tea, Coffee & Drinks">
-            <p>Snacks & Munchies</p>
-        </div>
-        <div class="category-item">
-            <img src="image/zzl.png" alt="Fresh Fruits & Vegetables">
-            <p>Fresh Fruits & Vegetables</p>
-        </div>
-        <div class="category-item">
-            <img src="image/Salami-pizza-hero.jpg" alt="Fresh Fruits & Vegetables">
-            <p>Pizza</p>
-        </div>
-    </div>
-    </section>
-
-    </body>
-
-    </html>

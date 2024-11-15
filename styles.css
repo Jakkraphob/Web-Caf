@@ -47,145 +47,286 @@ body {
     }
 }
 
+@keyframes sparkle {
+    0%, 100% {
+        text-shadow: 0 0 5px #fff,
+                     0 0 10px #fff,
+                     0 0 15px #ff69b4,
+                     0 0 20px #ff69b4;
+    }
+    50% {
+        text-shadow: 0 0 10px #fff,
+                     0 0 20px #fff,
+                     0 0 30px #ff69b4,
+                     0 0 40px #ff69b4;
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 /* Navbar Styles */
 .navbar {
+    background-color: #ffac69b8;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.8s ease-out;
-    min-height: 80px;
-    z-index: 1;
-    position: relative;
 }
 
 /* Logo Styles */
-.logo {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
+.logo a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .logo-text {
-    color: #ffffff;
-    letter-spacing: 1px;
-    font-size: 2.2rem;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .logo-and {
-    color: #92470a;
-    margin: 0 15px;
-    font-size: 2rem;
+    color: #ff6b6b;
+    font-size: 1.3rem;
+    font-weight: 500;
 }
 
-/* Menu Styles */
+/* Navigation Menu */
 .nav-menu {
     display: flex;
     gap: 2rem;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-link {
-    position: relative;
+    color: #333;
     text-decoration: none;
-    color: var(--text-color);
     font-weight: 500;
-    transition: var(--transition-speed);
     padding: 0.5rem 1rem;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
 }
 
-.nav-link::before {
-    content: attr(data-text);
+.nav-link:hover {
+    color: #ff6b6b;
+}
+
+.nav-link.active {
+    color: #ff6b6b;
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
     position: absolute;
-    color: var(--primary-color);
-    width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    transition: width var(--transition-speed) ease-in-out;
-    text-shadow: 0 0 10px var(--primary-color);
+    bottom: -5px;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: #ff6b6b;
 }
 
-.nav-link:hover::before {
-    width: 100%;
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
 }
 
-/* Mobile Styles */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 0.5rem 0;
+    min-width: 150px;
+    display: none;
+    list-style: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f8f9fa;
+    color: #ff6b6b;
+}
+
+/* Right Menu Items */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    padding: 0.5rem;
+}
+
+.search-box input {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0 0.5rem;
+    width: 150px;
+}
+
+.search-box button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #666;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.cart-icon, .user-icon {
+    position: relative;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff6b6b;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .search-box {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
-    .navbar {
-        position: relative;
-        padding: 1.2rem 1rem;
-        min-height: 70px;
-    }
-
-    .logo {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 1.5rem;
-        white-space: nowrap;
-    }
-
-    .logo-text {
-        font-size: 1.3rem;
-    }
-
-    .logo-and {
-        font-size: 1.2rem;
-        margin: 0 8px;
-    }
-
     .hamburger {
         display: block;
     }
 
-    /* เมนูที่เลื่อนออกมา */
     .nav-menu {
-        position: fixed !important;
+        position: fixed;
         left: -100%;
         top: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: #ac731f;
-        display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: 0.3s;
-        z-index: 99998 !important;
+        background-color: #fff;
+        width: 250px;
+        height: 100vh;
+        padding-top: 80px;
+        transition: 0.3s ease-in-out;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu.active {
         left: 0;
     }
 
-    /* ปรับสไตล์ลิงก์ในเมนู */
-    .nav-link {
-        position: relative;
+    .nav-menu li {
+        width: 100%;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .nav-menu .nav-link {
         display: block;
-        padding: 20px 0;
-        font-size: 1.8rem;
-        color: #ffffff;
-        margin: 10px 0;
-        text-decoration: none;
-        font-weight: 500;
+        width: 100%;
+        padding: 0.5rem 0;
     }
 
-    .nav-link:hover {
-        transform: scale(1.1);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
     }
 
-    /* Animation for hamburger */
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+    .menu-overlay.active {
+        display: block;
+    }
+
+    .dropdown-menu {
+        position: static;
+        display: none;
+        box-shadow: none;
+        padding-left: 2rem;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
     }
 
     .hamburger.active .bar:nth-child(2) {
         opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
     }
 
     .hamburger.active .bar:nth-child(3) {
@@ -193,66 +334,28 @@ body {
     }
 }
 
-/* สำหรับหน้าจอที่เล็กมากๆ */
-@media (max-width: 360px) {
-    .navbar {
-        padding: 1rem 0.8rem;
-        min-height: 60px;
-    }
-
-    .logo {
-        font-size: 1.2rem;
-    }
-
-    .logo-text {
-        font-size: 1.1rem;
-    }
-
-    .logo-and {
-        font-size: 1rem;
-        margin: 0 5px;
-    }
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.search-bar input {
-    padding: 0.5rem;
-    border: none;
-    border-radius: 5px;
-    margin: 0 1rem;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    margin-left: 1rem;
-}
-
-.menu a:hover {
-    text-decoration: underline;
-}
-
 /* Hero Section */
 .hero {
-    display: flex;
-    align-items: center;
-    padding: 2rem 4rem;
-    gap: 1rem;
-    background: linear-gradient(to right, 
-        rgba(0, 0, 0, 0.8), 
-        rgba(0, 0, 0, 0.4), 
-        rgba(0, 0, 0, 0)), 
-        url('image/eer.jpg');
+    margin-top: 70px;
+    padding: 4rem 2rem;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('image/eer.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    min-height: 75vh;
-    position: relative;
-    z-index: 1;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+    .hero {
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+    
+    .hero-content {
+        width: 100%;
+    }
 }
 
 .hero-content {
@@ -260,6 +363,7 @@ body {
     text-align: left;
     padding-left: 2rem;
 }
+
 
 .hero-content h1 {
     color: #ffffff;
@@ -587,7 +691,7 @@ body {
 
 .category-item img:hover {
     transform: scale(1.50);
-    /* ขยายรูปภาพเมื่อ hover */
+    /* ยายรูปภาเมื่อ hover */
 }
 
 .category-item p {
@@ -607,7 +711,7 @@ body {
 .categories {
     text-align: center;
     padding: 2rem 1rem;
-    /* ระยะห่างด้านบนและด้านล่าง 2rem, ด้านซ้ายและขวา 1rem */
+    /* ระยะห่างด้านบนและด้านล่าง 2rem, ด้านซ้ายและขว 1rem */
 }
 
 .category-grid {
@@ -616,7 +720,7 @@ body {
     gap: 20px;
     /* ระยะห่างระหว่างแต่ละ category-item */
     padding: 0 40px;
-    /* เพิ่มระยะห่างด้านซ้ายและขวา */
+    /* เพิ่มะยะห่างด้านซ้ายและขวา */
 }
 
 .category-item {
@@ -670,7 +774,7 @@ body {
     width: 120px;
     /* กำหนดความกว้างคงที่ของรูปภาพ */
     height: 120px;
-    /* กำหนดค���ามสูงงที่ของรูปภาพ */
+    /* กำหนดคามสูงงที่ของรูปภาพ */
     object-fit: cover;
     /* ครอบรูปภาพให้พอีในกรบ */
     border-radius: 10px;
@@ -746,85 +850,8 @@ body {
     color: #333;
 }
 
-/* Navbar Styling */
-.navbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
-    background-color: #ac731f;
-}
 
-.logo {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.5em;
-}
 
-.search-bar input {
-    padding: 0.5em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.menu {
-    display: flex;
-    gap: 1em;
-}
-
-.menu a {
-    text-decoration: none;
-    color: #333;
-    padding: 0.5em;
-}
-
-.menu a:hover {
-    color: #007bff;
-}
-
-/* Hero Section Styling */
-.hero {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding: 2em;
-    background-color: #ac731fa8;
-    text-align: center;
-}
-
-.hero-content h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 2em;
-    margin-bottom: 1em;
-}
-
-.hero-content p {
-    font-size: 1em;
-    margin-bottom: 1em;
-    line-height: 1.5;
-}
-
-.hero-btn {
-    padding: 0.7em 1.5em;
-    font-size: 1em;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.hero-btn:hover {
-    background-color: #0056b3;
-}
-
-.hero-image img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 10px;
-}
 
 /* Featured Categories Styling */
 .categories {
@@ -859,54 +886,7 @@ body {
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 
-    .menu {
-        flex-direction: column;
-        width: 100%;
-        align-items: flex-start;
-    }
-
-    .hero {
-        text-align: center;
-        padding: 1em;
-    }
-
-    .hero-content h1 {
-        font-size: 1.8em;
-    }
-
-    .hero-btn {
-        font-size: 0.9em;
-    }
-
-    .category-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar {
-        padding: 1em;
-    }
-
-    .logo {
-        font-size: 1.2em;
-    }
-
-    .hero-content h1 {
-        font-size: 1.5em;
-    }
-
-    .hero-btn {
-        font-size: 0.8em;
-        padding: 0.5em 1.2em;
-    }
-}
 
 /* Hero Section Styling */
 .hero {
@@ -1004,22 +984,7 @@ body {
     transform: rotate(-5deg);
 }
 
-/* สไตล์ของ Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #d87315c5;
-    color: #fff;
-}
 
-/* โลโก้ */
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ff69b4;
-}
 
 /* เมนูที่จะแสดงในหน้าจอใหญ่ */
 .menu {
@@ -1041,154 +1006,207 @@ body {
 /* สไตล์ของปุ่ม hamburger */
 .hamburger {
     display: none;
-    /* ซ่อนในหน้าจอใหญ่ */
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.hamburger span {
-    height: 3px;
-    width: 25px;
-    background-color: #fff;
-    margin: 4px 0;
-    transition: all 0.3s ease;
-}
-
-/* เมนูและปุ่ม hamburger นหน้าจอเล็ก (max-width: 768px) */
-@media (max-width: 768px) {
-
-    /* ซ่อนเมนูหลักในหน้าจอเล็ก */
-    .menu {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 75%;
-        height: 100%;
-        background-color: #333;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        z-index: 10;
-    }
-
-    /* แสดงเมนูเมื่อมีการเปิด */
-    .menu.show {
-        transform: translateX(0);
-    }
-
-    /* เพิ่มระยะห่างในแต่ะลิงคเมนู */
-    .menu a {
-        padding: 15px 0;
-        font-size: 1.2rem;
-    }
-
-    /* แสดงปุ่ม hamburger ในหน้าอเล็ก */
-    .hamburger {
-        display: flex;
-    }
-
-    /* สไตล์เมื่อปุ่ม hamburger คลิกแล้วเปลี่ยนเป็น X */
-    .hamburger.open span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger.open span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.open span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-}
-
-/* Reset stacking context */
-* {
-    position: relative;
-    z-index: 1;
-}
-
-/* Hamburger Menu Styles */
-.hamburger {
-    display: none;
+    position: fixed;
+    left: 20px;
+    top: 25px;
+    z-index: 99999;
     cursor: pointer;
     background: none;
     border: none;
     padding: 10px;
-    position: fixed !important;
-    left: 15px;
-    top: 20px;
-    z-index: 99999 !important;
 }
 
 .bar {
     display: block;
-    width: 30px;
+    width: 25px;
     height: 3px;
     margin: 5px 0;
-    border-radius: 3px;
-    background-color: #ffffff;
+    background-color: #e9a540;
     transition: all 0.3s ease;
 }
 
-/* Mobile Menu Styles */
+/* Mobile Menu */
 @media (max-width: 768px) {
-    body {
-        position: relative;
-    }
-
     .hamburger {
         display: block;
     }
 
-    /* เมนูที่เลื่อนออกมา */
     .nav-menu {
-        position: fixed !important;
-        left: -100%;
+        position: fixed;
         top: 0;
+        left: -100%;
         width: 100%;
         height: 100vh;
-        background-color: #ac731f;
+        background-color: #f0e5db;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         transition: 0.3s;
-        z-index: 99998 !important;
+        z-index: 99998;
+        padding-top: 70px;
     }
 
     .nav-menu.active {
         left: 0;
     }
 
-    /* ปรับสไตล์ลิงก์ในเมนู */
-    .nav-link {
-        position: relative;
-        display: block;
-        padding: 20px 0;
-        font-size: 1.8rem;
-        color: #ffffff;
-        margin: 10px 0;
-        text-decoration: none;
-        font-weight: 500;
+    /* Hamburger Animation */
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
     }
 
-    /* ทำให้แน่ใจว่าเนื้อหาอื่นๆ อยู่ด้านหลัง */
-    .navbar,
-    .hero,
-    .categories,
-    .content-section,
-    main,
-    section {
-        position: relative;
-        z-index: 1;
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 }
 
-/* เพิ่ม CSS สำหรับ container หลัก */
-.main-container {
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99997;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+
+
+/* Hero Section - Desktop */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 2rem 4rem;
+    gap: 1rem;
+    background: linear-gradient(to right, 
+        rgba(0, 0, 0, 0.8), 
+        rgba(0, 0, 0, 0.4), 
+        rgba(0, 0, 0, 0)), 
+        url('image/eer.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 75vh;
     position: relative;
     z-index: 1;
 }
+
+/* Tablet Devices */
+@media (max-width: 768px) {
+    .hero {
+        padding: 2rem;
+        min-height: 70vh;
+        background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.8),
+            rgba(0, 0, 0, 0.6)),
+            url('image/eer.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-content {
+        padding-left: 0;
+        max-width: 500px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .hero {
+        padding: 1.5rem;
+        min-height: 60vh; /* ลดความสูงลง */
+        background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.8),
+            rgba(0, 0, 0, 0.6)),
+            url('image/eer.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-content {
+        padding: 0 1rem;
+        max-width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        margin-bottom: 1.2rem;
+    }
+
+    .hero-btn {
+        padding: 0.8rem 1.6rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 360px) {
+    .hero {
+        min-height: 50vh;
+        padding: 1rem;
+    }
+
+    .hero-content {
+        padding: 0 0.5rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+    }
+
+    .hero-btn {
+        padding: 0.7rem 1.4rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* เพิ่ม overlay เพื่อป้องกันการคลิกเนื้อหาด้านหลัง */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
