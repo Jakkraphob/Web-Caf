@@ -1564,3 +1564,67 @@ body {
     border-radius: 50%;
     display: none;
 }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Hide the navigation menu on smaller screens */
+    }
+
+    .nav-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-content {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr; /* Stack menu items vertically */
+    }
+
+    .menu-card {
+        margin-bottom: 20px; /* Add space between menu items */
+    }
+
+    .search-box {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .nav-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Hide the navigation menu by default */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Adjust based on your navbar height */
+        left: 0;
+        width: 100%;
+        background-color: #fff; /* Match your navbar background */
+        z-index: 1000;
+    }
+
+    .nav-menu.active {
+        display: flex; /* Show the menu when active */
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .nav-container {
+        position: relative;
+    }
+}

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.querySelector(".nav-menu");
     const menuOverlay = document.querySelector(".menu-overlay");
     const dropdowns = document.querySelectorAll(".dropdown a");
+    const hamburger = document.getElementById('hamburger');
 
     // เปิดเมนู
     dotsMenu?.addEventListener("click", () => {
@@ -38,6 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
             total: 0
         }));
     }
+
+    hamburger.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+    });
 });
 
 // ฟังก์ชันเพิ่มสินค้าลงตะกร้า
