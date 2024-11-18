@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Sprinkle & Sip</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1>Shopping Cart</h1>
+            <a href="index.html" class="continue-shopping">← Continue Shopping</a>
+        </div>
+
+        <div class="cart-content">
+            <!-- Left Side - Cart Items -->
+            <div class="cart-items" id="cartItemsContainer">
+                <!-- สินค้าจะถูกเพิ่มที่นี่ด้วย JavaScript -->
+            </div>
+
+            <!-- Right Side - Order Summary -->
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-items">
+                    <div class="summary-item">
+                        <span>Subtotal</span>
+                        <span id="subtotal">฿0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Shipping</span>
+                        <span id="shipping">฿0.00</span>
+                    </div>
+                </div>
+                <div class="total">
+                    <span>Total</span>
+                    <span id="total">฿0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">
+                    <i class="fas fa-lock"></i> Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.cart-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.cart-header {
+    margin-bottom: 30px;
+}
+
+.cart-header h1 {
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.continue-shopping {
+    color: purple;
+    text-decoration: none;
+}
+
+.cart-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.cart-items {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-details {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.item-details h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.price {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quantity-controls button {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.quantity-controls input {
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.remove-btn {
+    color: #ff0000;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.order-summary {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    height: fit-content;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.order-summary h2 {
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.summary-items {
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.checkout-btn:hover {
+    background: #cc0000;
+}
+
+@media (max-width: 768px) {
+    .cart-content {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    displayCartItems();
+});
+
+function displayCartItems() {
+    const cartContainer = document.getElementById('cartItemsContainer');
+    const cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+
+    if (!cart.items || cart.items.length === 0) {
+        cartContainer.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-basket"></i>
+                <h2>Your cart is empty</h2>
+                <p>Browse our items and discover our best deals!</p>
+            </div>
+        `;
+        updateSummary(0);
+        return;
+    }
+
+    const cartHTML = cart.items.map(item => `
+        <div class="cart-item">
+            <img src="${item.image || 'placeholder.jpg'}" alt="${item.name || 'Product'}" 
+                 onerror="this.src='placeholder.jpg'">
+            <div class="item-details">
+                <h3>${item.name || 'Product'}</h3>
+                <p>${item.description || ''}</p>
+                <div class="price">฿${(item.price || 0).toFixed(2)}</div>
+                <div class="quantity-controls">
+                    <button onclick="updateQuantity(${item.id}, -1)">-</button>
+                    <input type="number" value="${item.quantity || 1}" 
+                           min="1"
+                           onchange="updateQuantityDirect(${item.id}, this.value)">
+                    <button onclick="updateQuantity(${item.id}, 1)">+</button>
+                </div>
+            </div>
+            <button class="remove-btn" onclick="removeItem(${item.id})">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `).join('');
+
+    cartContainer.innerHTML = cartHTML;
+    updateSummary(cart.items);
+}
+
+function updateQuantity(itemId, change) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+    const item = cart.items.find(item => item.id === itemId);
+    
+    if (item) {
+        item.quantity = Math.max(1, item.quantity + change);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayCartItems();
+    }
+}
+
+function updateQuantityDirect(itemId, newQuantity) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+    const item = cart.items.find(item => item.id === itemId);
+    
+    if (item) {
+        item.quantity = Math.max(1, parseInt(newQuantity) || 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayCartItems();
+    }
+}
+
+function removeItem(itemId) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+    cart.items = cart.items.filter(item => item.id !== itemId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCartItems();
+}
+
+function updateSummary(items) {
+    const subtotal = Array.isArray(items) ? 
+        items.reduce((sum, item) => sum + (item.price * item.quantity), 0) : 0;
+    const shipping = subtotal > 0 ? 5 : 0;
+    const total = subtotal + shipping;
+
+    document.getElementById('subtotal').textContent = `฿${subtotal.toFixed(2)}`;
+    document.getElementById('shipping').textContent = `฿${shipping.toFixed(2)}`;
+    document.getElementById('total').textContent = `฿${total.toFixed(2)}`;
+}
+
+async function checkout() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+    const frontend_url = 'https://jakkraphob.github.io/Web-Caf/';
+    const checkoutBtn = document.querySelector('.checkout-btn');
+    
+    checkoutBtn.disabled = true;
+    
+    try {
+        const response = await fetch('https://tools.mbasic.io/create-payment-link', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                items: cart.items.map(item => ({
+                    name: item.name,
+                    description: item.description || item.name,
+                    price: Math.round(item.price),
+                    quantity: item.quantity
+                })),
+                redirectUrl: `${frontend_url}/success.html`,
+                frontend_url: frontend_url
+            })
+        });
+        
+        const data = await response.json();
+
+        if (data.success) {
+            window.open(data.paymentUrl, '_blank');
+        } else {
+            throw new Error(data.error || 'An error occurred. Please try again.');
+        }
+    } catch (err) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.message,
+            confirmButtonColor: '#ff0000'
+        });
+    } finally {
+        checkoutBtn.disabled = false;
+    }
+}
+</script>
+
+</body>
+</html>
+
+
+
+

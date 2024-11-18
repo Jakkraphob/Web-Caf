@@ -13,6 +13,9 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -59,7 +62,7 @@
                     <button><i class="fas fa-search"></i></button>
                 </div>
                 <div class="nav-buttons">
-                    <a href="#" class="cart-icon">
+                    <a href="cart.html" class="cart-icon" id="cart-button">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </a>
@@ -74,7 +77,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav><br
 
     <div class="menu-overlay"></div>
 
@@ -91,40 +94,207 @@
     </header>
 
     <!-- Featured Categories -->
-    <section class="categories">
-        <h2>Featured Categories</h2>
-        <div class="category-grid">
-            <div class="category-item">
-                <img src="image/9tfrgu.jpg" alt="Dairy, Bread & Eggs">
-                <p>Tea, Coffee & Drinks</p>
-            </div>
-            <div class="category-item">
-                <img src="image/dads.png" alt="Snacks & Munchies">
-                <p>Dairy, Bread & Eggs</p>
-            </div>
-            <div class="category-item">
-                <img src="image/bff.png" alt="Bakery & Biscuits">
-                <p>Bakery & Biscuits</p>
-            </div>
-            <div class="category-item">
-                <img src="image/sdas.png" alt="Instant Food">
-                <p>Instant Food</p>
-            </div>
-            <div class="category-item">
-                <img src="image/daeee.jpg" alt="Tea, Coffee & Drinks">
-                <p>Snacks & Munchies</p>
-            </div>
-            <div class="category-item">
-                <img src="image/zzl.png" alt="Fresh Fruits & Vegetables">
-                <p>Fresh Fruits & Vegetables</p>
-            </div>
-            <div class="category-item">
-                <img src="image/Salami-pizza-hero.jpg" alt="Fresh Fruits & Vegetables">
-                <p>Pizza</p>
+    <!-- เพิ่มส่วมนูแนะนำ -->
+    <section class="recommended-menu">
+        <div class="container">
+            <h2 class="section-title">RECOMMENDED MENU</h2>
+            <div class="menu-grid">
+                <!-- เมนูแนะนำ 1 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/latte.png" alt="Latte">
+                        <div class="menu-badge">Bestseller</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Latte</h3>
+                        <p>กาแฟนมรสนุ่มละมุน</p>
+                        <div class="menu-price">฿65</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 2,
+                            name: 'Latte',
+                            price: 65,
+                            image: 'image/latte.png',
+                            description: 'กาแฟนมรสนุ่มละมุน',
+                            category: 'coffee',
+                            badge: 'Bestseller',
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เมนูแนะนำ 2 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/cheese.png" alt="Cheesecake">
+                        <div class="menu-badge">Popular</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Cheesecake</h3>
+                        <p>เค้กชีสนุ่มละมุน</p>
+                        <div class="menu-price">฿89</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 7,
+                            name: 'Cheesecake',
+                            price: 89,
+                            image: 'image/cheese.png',
+                            description: 'เค้กชีสนุ่มละมุน',
+                            category: 'dessert',
+                            badge: 'Popular',
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เมนูแนะนำ 3 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/green.png" alt="ชาเขียว">
+                        <div class="menu-badge">New</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Green Tea</h3>
+                        <p>ชาเขียวญี่ปุ่นแท้</p>
+                        <div class="menu-price">฿50</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 5,
+                            name: 'Green Tea',
+                            price: 50,
+                            image: 'image/green.png',
+                            description: 'ชาเขียวญี่ปุ่นแท้',
+                            category: 'drinks',
+                            badge: 'New'
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เมนูแนะนำ 4 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/croi.png" alt="ครัวซองต์">
+                        <div class="menu-badge">Recommended</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Croissant</h3>
+                        <p>ครัวซองต์เนยส</p>
+                        <div class="menu-price">฿45</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 10,
+                            name: 'Croissant',
+                            price: 45,
+                            image: 'image/croi.png',
+                            description: 'ครัวซองต์เนยสด',
+                            category: 'bakery',
+                            badge: 'Recommended'
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เมนูแนะนำ 5 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/matcha.png" alt="มัทฉะลาเต้">
+                        <div class="menu-badge">Premium</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Matcha Latte</h3>
+                        <p>ชาเขียวมัทฉะผสมนมสูตรพิเศษ</p>
+                        <div class="menu-price">฿75</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 1,
+                            name: 'Matcha Latte',
+                            price: 75,
+                            image: 'image/matcha.png',
+                            description: 'ชาเขียวมัทฉะผสมนสูตรพิเศษ',
+                            category: 'drinks',
+                            badge: 'Premium',
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เมนูแนะนำ 6 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/tira.png" alt="ทิรามิสุ">
+                        <div class="menu-badge">Chef's Choice</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Tiramisu</h3>
+                        <p>ทิรามิสุสูตรต้นตำรับอิตาลี</p>
+                        <div class="menu-price">฿95</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 14,
+                            name: 'Tiramisu',
+                            price: 95,
+                            image: 'image/tira.png',
+                            description: 'ทิรามิสุสูตรต้นตำรับอิตาลี',
+                            category: 'dessert',
+                            badge: 'Chef\'s Choice'
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เมนูแนะนำ 7 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/cara.png" alt="คาราเมลแฟรปปูชิโน่">
+                        <div class="menu-badge">Best Seller</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Caramel Frappuccino</h3>
+                        <p>เครื่องดื่มปั่นคาราเมลท็อปด้วยวิปครีม</p>
+                        <div class="menu-price">฿85</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 15,
+                            name: 'Caramel Frappuccino',
+                            price: 85,
+                            image: 'image/cara.png',
+                            description: 'เครื่องดื่มปั่นคาราเมลท็อปด้วยวิปครีม',
+                            category: 'drinks',
+                            badge: 'Best Seller'
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+
+                <!-- เมนูแนะนำ 8 -->
+                <div class="menu-card">
+                    <div class="menu-image">
+                        <img src="image/waff.png" alt="วาฟเฟิลผลไม">
+                        <div class="menu-badge">Signature</div>
+                    </div>
+                    <div class="menu-info">
+                        <h3>Fresh Fruit Waffle</h3>
+                        <p>วาฟเฟิลกรอบนอกนุ่มในพร้อมผลไม้สด</p>
+                        <div class="menu-price">฿120</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({
+                            id: 16,
+                            name: 'Fresh Fruit Waffle',
+                            price: 120,
+                            image: 'image/waff.png',
+                            description: 'วาฟเฟิลกรอบนอกนุ่มในพร้อมผลไม้สด',
+                            category: 'dessert',
+                            badge: 'Signature'
+                        })">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>
 
