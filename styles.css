@@ -860,7 +860,7 @@ body {
 }
 
 .categories h2 {
-    font-size: 1.8em;
+    font-size: 3em;
     margin-bottom: 1em;
 }
 
@@ -1305,7 +1305,7 @@ body {
 
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 1.5em;
     margin-bottom: 40px;
     color: #333;
     font-weight: 700;
